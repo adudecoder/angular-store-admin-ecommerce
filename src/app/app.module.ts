@@ -1,3 +1,4 @@
+import { ITables } from './orders-table/ITables';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -27,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { OrdersTableComponent } from './orders-table/orders-table.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { MiniCardComponent } from './mini-card/mini-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { MiniCardComponent } from './mini-card/mini-card.component';
     AnnualSalesChartComponent,
     StoreSessionsChartComponent,
     OrdersTableComponent,
-    MiniCardComponent,
+    MiniCardComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { MiniCardComponent } from './mini-card/mini-card.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatChipsModule
+    MatChipsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
