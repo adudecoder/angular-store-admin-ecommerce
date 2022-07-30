@@ -1,8 +1,16 @@
-import { ITables } from './../../orders-table/ITables';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
+export interface Order {
+  id: number;
+  date: string;
+  name: string;
+  status: string;
+  orderTotal: number;
+  paymentMode: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +25,8 @@ export class OrderService {
     pageSize: number,
     sortField: string,
     sortDirection: string
-  ): Observable<ITables[]> {
-    return this.http.get<ITables[]>(this.ordersUrl).pipe(
+  ): Observable<Order[]> {
+    return this.http.get<Order[]>(this.ordersUrl).pipe(
       map((response) => {
         return this.getPagedData(
           this.getSortedData(response, sortField, sortDirection),
@@ -31,7 +39,7 @@ export class OrderService {
   }
 
   getOrderCount(): Observable<number> {
-    return this.http.get<ITables[]>(this.ordersUrl).pipe(
+    return this.http.get<Order[]>(this.ordersUrl).pipe(
       map((response) => {
         return response.length;
       }),
@@ -50,11 +58,11 @@ export class OrderService {
     return throwError(errorMessage);
   }
 
-  private getPagedData(data: ITables[], startIndex: number, pageSize: number) {
+  private getPagedData(data: Order[], startIndex: number, pageSize: number) {
     return data.splice(startIndex, pageSize);
   }
 
-  private getSortedData(data: ITables[], active: string, direction: string) {
+  private getSortedData(data: Order[], active: string, direction: string) {
     if (!active || direction === '') {
       return data;
     }
